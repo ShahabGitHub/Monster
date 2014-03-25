@@ -17,7 +17,7 @@ import be.kuleuven.cs.som.annotate.*;
  *         monster.
  *         | isValidProtection(getProtection())
  * 
- * @version  1.0
+ * @version  2.0
  * @author   Shahab Ud Din at Git
  */
 public class Monster {
