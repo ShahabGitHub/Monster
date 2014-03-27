@@ -25,11 +25,11 @@ public class Monster {
 	/**
 	 * Constant reflecting the lowest possible value for the protection of all monsters
 	 */
-	private static final int MIN_PROTECTION = 1;
+	private final int MIN_PROTECTION = 1;
 	/**
 	 * Constant reflecting the highest possible value for the protection of all monsters
 	 */	
-	private static final int MAX_PROTECTION = 40;
+	private final int MAX_PROTECTION = 40;
 	/**
 	 * Constant reflecting the lowest possible value for the damage of all monsters
 	 */
@@ -94,7 +94,7 @@ public class Monster {
 	 *          equal to the given damage.
 	 *        | if ( (damage >= getMinDamage()) && (damage <= getMaxDamage()) )
 	 *        |   then new.getDamage() == damage
-	 * @post    If the given damage greater then the maximum damage for monster,
+	 * @post    If the given damage is greater then the maximum damage for monster,
 	 *          the damage of this monster is equal to the maximum damage of monster.
 	 *        | if (damage > getMaxDamage())
 	 *        |   then new.getDamage() == getMaxDamage()
@@ -119,7 +119,7 @@ public class Monster {
      */
 	@Raw
 	public Monster (String name, int damage, int protection, int strength, int hitpoints) throws IllegalHitpointsException, IllegalNameException{
-		if (!isValidName(name))
+		if (!Monster.isValidName(name))
     		throw new IllegalNameException(name);
         this.name = name;
 		this.setDamage(damage);
@@ -133,12 +133,26 @@ public class Monster {
 	}
 	
 	// validate regular expression
-	public boolean isValidName (String name) {
+	/**
+     * Check whether the given name is a valid name for any monster.
+     *  
+     * @param  name
+     * 		   The name of monster to check.
+     * @return True if and only if the given name is of at least of length 2 character
+     * 	       and first character is capital alphabet (A-Z) and can have
+     *         only character, digit, space and ' as character of name.
+     *       | Let REG_EX = "[A-Z]+[A-Za-z1-9' ]+"
+     *       | result == name.matches(REG_EX)
+     * @Note   We can not call this function from constructor as the maximum value of the hitpoints
+     *         for this monster is set after the execution of constructor. to check it from constructor
+     *         another method with two argument is available.   
+     */
+	public static boolean isValidName (String name) {
 		String REG_EX = "[A-Z]+[A-Za-z1-9' ]+";
 		return name.matches(REG_EX);
 	}
 	
-	
+	 
 	/**
 	 * Set the hitpoints of this monster to the given hitpoints value.
 	 *
@@ -161,7 +175,7 @@ public class Monster {
      * Return the hitpoints of this monster.
      *   hitpoints denotes the life line monster can have.
      *        */
-    @Basic @Raw @Immutable
+    @Basic @Raw
     public int getHitpoints () {
     	return this.hitpoints;
     }
@@ -183,7 +197,7 @@ public class Monster {
      * 	       and maximum hitpoints for this monster.
      *       | result == (hitpoints >= 0) && (hitpoints <= this.getMaxHitpoints())
      * @Note   We can not call this function from constructor as the maximum value of the hitpoints
-     *         for this monster is set after the execution of constructor. to check it from construtor
+     *         for this monster is set after the execution of constructor. to check it from constructor
      *         another method with two argument is available.   
      */
 	public boolean isValidHitpoints(int hitpoints) {
@@ -373,7 +387,7 @@ public class Monster {
 	public boolean isValidProtection(int protection) {
 		if (protection == 1) 
 			return true;
-		return ((protection >= MIN_PROTECTION) && (protection <= MAX_PROTECTION) && (isPrime(protection)));
+		return ((protection >= this.MIN_PROTECTION) && (protection <= this.MAX_PROTECTION) && (Monster.isPrime(protection)));
 	}
 	
 	/**
@@ -391,7 +405,7 @@ public class Monster {
 	 *       |       then false
 	 *       |   else true
      */
-	public boolean isPrime(int number){
+	public static boolean isPrime(int number){
 		if (number == 1)
 			return false;
 		if (number == 2)
@@ -450,7 +464,7 @@ public class Monster {
 	 */
 	@Basic
 	public static int getMaxDamage() {
-		return MaxDamage;
+		return Monster.MaxDamage;
 	}
 	
 	/**
@@ -493,6 +507,23 @@ public class Monster {
 	@Basic
 	public int getDamage() {
 		return this.damage;
+	}
+	
+	/**
+	 * Return the maximum protection of this monster.
+	 */
+	@Basic
+	public int getMaxProtection() {
+		return this.MAX_PROTECTION;
+	}
+	
+	
+	/**
+	 * Return the minimum protection of this monster.
+	 */
+	@Basic
+	public int getMinProtection() {
+		return this.MIN_PROTECTION;
 	}
 	/**
      * Check whether the monster is alive.

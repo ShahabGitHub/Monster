@@ -90,7 +90,13 @@ public class MonsterTest {
 	// Constructor
 	@Test
 	public final void extendedConstructor_allLeagalCase() throws Exception {
-		 new Monster("Protection Monster",10,100,100,100);
+		//(String name, int damage, int protection, int strength, int hitpoints)
+		 Monster shahab = new Monster("Shahab",1,13, 9, 19);
+		 assertEquals("Shahab",shahab.getName());
+		 assertEquals(1,shahab.getDamage());
+		 assertEquals(13,shahab.getProtection());
+		 assertEquals(9,shahab.getStrength());
+		 assertEquals(19,shahab.getHitpoints());
 	}
 	
 	@Test(expected = IllegalNameException.class)
@@ -106,42 +112,42 @@ public class MonsterTest {
 	//isValidName
 	@Test
 	public final void isValidName_TrueCase_length() {
-		assertTrue(protectionMonster.isValidName("Ab"));
+		assertTrue(Monster.isValidName("Ab"));
 	}
 	
 	@Test
 	public final void isValidName_TrueCase_StartCapital() {
-		assertTrue(protectionMonster.isValidName("Aname"));
+		assertTrue(Monster.isValidName("Aname"));
 	}
 	
 	@Test
 	public final void isValidName_TrueCase_HaveDigit() {
-		assertTrue(protectionMonster.isValidName("Aname1"));
+		assertTrue(Monster.isValidName("Aname1"));
 	}
 	
 	@Test
 	public final void isValidName_TrueCase_HaveSpace() {
-		assertTrue(protectionMonster.isValidName("Aname 1"));
+		assertTrue(Monster.isValidName("Aname 1"));
 	}
 	
 	@Test
 	public final void isValidName_TrueCase_HaveApostrophes() {
-		assertTrue(protectionMonster.isValidName("Aname '1"));
+		assertTrue(Monster.isValidName("Aname '1"));
 	}
 	
 	@Test
 	public final void isValidName_FalseCase_length() {
-		assertFalse(protectionMonster.isValidName("A"));
+		assertFalse(Monster.isValidName("A"));
 	}
 	
 	@Test
 	public final void isValidName_FalseCase_StartCapital() {
-		assertFalse(protectionMonster.isValidName("aname"));
+		assertFalse(Monster.isValidName("aname"));
 	}
 	
 	@Test
 	public final void isValidName_FalseCase_UnallowedCharacter() {
-		assertFalse(protectionMonster.isValidName("Aname+"));
+		assertFalse(Monster.isValidName("Aname+"));
 	}
 	
 	
@@ -234,15 +240,15 @@ public class MonsterTest {
 		// isPrime
 		@Test
 		public final void isPrime_TrueCase() {
-			assertTrue(protectionMonster.isPrime(31));
+			assertTrue(Monster.isPrime(31));
 		}
 		@Test
 		public final void isPrime_FalseCase() {
-			assertFalse(protectionMonster.isPrime(32));
+			assertFalse(Monster.isPrime(32));
 		}
 		@Test
 		public final void isPrime_OneCase() {
-			assertFalse(protectionMonster.isPrime(1));
+			assertFalse(Monster.isPrime(1));
 		}
 		
 		// setDamge

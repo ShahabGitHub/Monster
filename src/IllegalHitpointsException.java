@@ -5,7 +5,7 @@ import be.kuleuven.cs.som.annotate.*;
  * 
  * @note     This will provide a public method  to return the 
  * 			 the message to display in catch section.
- * @version  1.0
+ * @version  2.0
  * @author   Shahab Ud Din
  */
 
