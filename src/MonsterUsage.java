@@ -29,6 +29,7 @@ public class MonsterUsage {
 			System.out.println(" Name:"+shahab.getName()+" Damage:"+shahab.getDamage()
 					+" protection:"+shahab.getProtection()+" hitpoint:"+
 					shahab.getHitpoints()+" strength:"+shahab.getStrength());
+			//System.out.println(Weapon.getMaxDamage());
 			}catch (IllegalHitpointsException | IllegalNameException e) {
 				System.out.println(e.getMessage());
 			}

@@ -380,7 +380,7 @@ public class Monster {
      *  
      * @param  protection
      * 		   The protection of monster to check.
-     * @return True if and only if the given capacity is prime number between minimum protection
+     * @return True if and only if the given protection is prime number between minimum protection
      * 	       and maximum protection.
      *       | result == ((protection >= MIN_PROTECTION) && (protection <= MAX_PROTECTION) && (isPrime(protection)))
      */

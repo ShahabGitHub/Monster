@@ -25,7 +25,14 @@ public class Weapon {
 	
 	
 	
-	
+	/**
+	 * Constant reflecting the Minimum possible value of all weapon
+	 */
+	private static final int MIN_VALUE = 0;
+	/**
+	 * Constant reflecting the Minimum damage of all weapon
+	 */
+	private static final int MIN_DAMAGE = 1;
 	/**
 	 * Variable reflecting the identification of this weapon
 	 */	
@@ -35,12 +42,19 @@ public class Weapon {
 	 */	
 	private int value;
 	/**
+	 * Variable reflecting the damage afflicted by this weapon
+	 */	
+	private int damage;
+	/**
 	 * Variable reflecting the next unique and valid identification value for 
 	 * generating identification of a new created weapon
 	 */	
 	private static long WeaponIdentification = 1;
-	
-	
+	/**
+	 * Variable reflecting the maximum damage afflicted by all weapons
+	 */	
+	private static final int Max_Damage = 20;
+		
 	
 	
 	//************* Constructor
@@ -58,14 +72,95 @@ public class Weapon {
      * 		   will satisfy all its class invariants.
      */
 	
-	public Weapon (int value) {
+	public Weapon (int value, int damage) {
 		this.identification = generateUniqueValidIdentification();
 		this.setValue(value);
+		this.setDamage(damage);
+	}
+	
+	//********************************************************************Damage
+	
+	/**
+     * Set the damage afflicted by this weapon to the given damage.
+     * 
+     * @param  damage
+     * 		   The new damage for this weapon.
+     * @pre    The given value must be a valid value for a  weapon.
+     *       | isValidDamage(damage)
+     * @post   The value of this weapon is equal to the given value.
+     *       | new.getDamage() == damage
+     */
+	
+	public void setDamage(int damage) {
+		assert (isValidDamage(damage));
+		this.damage = damage;
 	}
 	
 	
+	/**
+     * Check whether the given damage is a valid damage for any weapon.
+     *  
+     * @param  damage
+     * 		   The damage of weapon to check.
+     * @return True if and only if the given damage is between minimum minimum
+     * 	       and maximum damage.
+     *       | result == (damage >= Weapon.getMinDamage() && damage <= Weapon.getMaxDamage())
+     */
+	public static boolean isValidDamage(int damage) {
+		return (damage >= Weapon.getMinDamage() && damage <= Weapon.getMaxDamage());
+	}
 	
-	//*****************Value
+	/**
+     * Set the maximum damage afflicted by all weapon to the given maximum damage.
+     * 
+     * @param  maxDamage
+     * 		   The new maximum damage for all weapons.
+     * @pre    The given maximum damage must be a valid maximum damage for all  weapons.
+     *       | isValidMaxDamage(maxDamage)
+     * @post   The new maximum damage of all weapon is equal to the given maximum damage.
+     *       | new (Weapon.getMaxDamage()) == maxDamage
+     */
+	public static void setMaxDamage(int maxDamage) {
+		assert(isValidMaxDamage(maxDamage));
+		Weapon.setMaxDamage(maxDamage);
+	}
+	
+	
+	/**
+     * Check whether the given maximum damage is a valid maximum damage for all weapons.
+     *  
+     * @param  maxDamage
+     * 		   The maximum damage of all weapon to check.
+     * @return True if and only if the given maximum damage is greater than or equal 
+     * 	       to minimum damage of all weapons.
+     *       | result == (maxDamage >= Weapon.getMinDamage())
+     */
+	public static boolean isValidMaxDamage(int maxDamage) {
+		return (maxDamage >= Weapon.getMinDamage());
+	}
+
+	/**
+     * Return the  maximum damage afflicted by all weapon.
+     */
+	public static int getMaxDamage() {
+		return Weapon.Max_Damage;
+	}
+	
+	/**
+     * Return the  minimum damage afflicted by all weapon.
+     */
+	public static int getMinDamage() {
+		return Weapon.MIN_DAMAGE;
+	}
+
+	/**
+     * Return the damage afflicted by this weapon.
+     */
+    public int getDamage() {
+    	return this.damage;
+    }
+	
+	//***********************************************************Value
 	
 	/**
      * Check whether the given value is a valid value for any weapon.
@@ -73,10 +168,10 @@ public class Weapon {
      * @param  value
      * 		   The value of weapon to check.
      * @return True if and only if the given identification is a positive number 
-     *       | result == (value >= 0)
+     *       | result == (value >= Monster.MIN_VALUE)
      */
 	public static boolean isValidValue (int value) {
-		return (value >= 0);
+		return (value >= Weapon.MIN_VALUE);
 	}
 	
 	/**
@@ -134,7 +229,7 @@ public class Weapon {
         this.setValue(this.getValue() + amount);
     }
 	
-	//*****************Identification
+	//**********************************************************************Identification
 	/**
      * generate and return a unique valid  identification for a weapon.
      * 
@@ -161,7 +256,7 @@ public class Weapon {
      * @return True if and only if the given identification is a positive odd number 
      *       | result == (identification % 2 == 1)  && (identification >= 1)
      */
-	public boolean isValidIdentification(long identification) {
+	public static boolean isValidIdentification(long identification) {
 		return (identification % 2 == 1) && (identification >= 1);
 	}
 	
