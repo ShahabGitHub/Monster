@@ -51,9 +51,21 @@ public class Weapon {
 	 */	
 	private static long WeaponIdentification = 1;
 	/**
-	 * Variable reflecting the maximum damage afflicted by all weapons
+	 * Constant reflecting the maximum damage afflicted by all weapons
 	 */	
 	private static final int Max_Damage = 20;
+	/**
+	 * Constant reflecting the minimum weight of all weapons
+	 */	
+	private static final int MIN_WEIGHT = 0;
+	/**
+	 * Constant reflecting the weight of  weapons
+	 */	
+	private  final int WEIGHT;
+	/**
+	 * Variable reflecting the Holder Monster of  this weapon
+	 */
+	private Monster holder;
 		
 	
 	
@@ -68,15 +80,71 @@ public class Weapon {
      * @post   The value of this new weapon is equal to the given
      * 		   value.
      *       | new.getValue() == value
+     * @param  damage
+     * 		   The new damage for this weapon.
+     * @pre    The given value must be a valid value for a  weapon.
+     *       | isValidDamage(damage)
+     * @post   The value of this weapon is equal to the given value.
+     *       | new.getDamage() == damage
+     * @param  weight
+     * 		   The weight for this new weapon.
+     * @post   The weight of this new monster is equal to the given weight.
+     *       | new.getWeight() == weight
+     * @throws IllegalWeightException
+	 * 		   The given weight is not a valid weight for
+	 * 		   a monster.
+	 *       | ! isValidWeight(weight)
      * @note   Any new weapon initialized with this constructor
      * 		   will satisfy all its class invariants.
      */
 	
-	public Weapon (int value, int damage) {
-		this.identification = generateUniqueValidIdentification();
+	public Weapon (int value, int damage, int weight)  throws IllegalWeightException{
 		this.setValue(value);
 		this.setDamage(damage);
+		if (!isValidWeight(weight))
+			throw new IllegalWeightException(weight);
+		this.WEIGHT = weight;
+		this.identification = generateUniqueValidIdentification();
+		// currently setting it to null which means a weapon is always created
+		// with out any holder and will be assigned to holder on later stage
+		// can be changed after enquiring to teacher.
+		this.holder = null; 
 	}
+	
+	//********************************************************************Holder
+	public Monster getHolder() {
+		return this.holder;
+	}
+	
+	
+	public void setHolder(Monster holder) {
+		this.holder = holder;
+		// need to set the this weapon in Monster's Anchor for consistency
+		// it can be checked either here of while setting this weapon in the 
+		//monsters's anchor. If it is not consistent raise exception
+		// one other issue is weather weapon can start with null holder
+		//or it should always be created with null holder.
+	}
+	//********************************************************************Weight
+	/**
+     * Check whether the given weight is a valid weight for weapon.
+     *  
+     * @param  weight
+     * 		   The weighte of weapon to check.
+     * @return True if and only if the given weight is greater than or equal 
+     * 	       to minimum minimum of all weapons.
+     *       | result == (maxDamage >= Weapon.getMinDamage())
+     */
+	public static boolean isValidWeight(int weight){
+		return weight >= MIN_WEIGHT;
+	}
+	
+	/**
+     * Return the damage afflicted by this weapon.
+     */
+    public int getWeight() {
+    	return this.WEIGHT;
+    }
 	
 	//********************************************************************Damage
 	

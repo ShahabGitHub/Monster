@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class WeaponTest {
 
-	//private Weapon weaponIdentification;
+	private Weapon weightWeapon_5;
 	private Weapon weaponValue;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -21,14 +21,19 @@ public class WeaponTest {
 
 	@Before
 	public void setUp() throws Exception {
-		//weaponIdentification = new Weapon(2);
-		weaponValue = new Weapon(10, 10);
+		weightWeapon_5 = new Weapon(2, 5,5);
+		weaponValue = new Weapon(10, 10,5);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 
+	//******************* constructor
+	@Test(expected = IllegalWeightException.class)
+	public final void extendedConstructor_illeagalWeightCase() throws Exception {
+		new Weapon(5,20,-1);
+	}
 	
 	//******************* validIdentification
 	@Test
@@ -93,5 +98,16 @@ public class WeaponTest {
 		assertFalse (Weapon.isValidDamage(Weapon.getMaxDamage()+1));
 	}
 
-
+	 //**************************** weight
+	@Test
+	public final void isvalidWeight_trueCase() {
+		assertTrue(Weapon.isValidWeight(5));
+	}
+	
+	@Test
+	public final void isvalidWeight_falseCase() {
+		assertFalse(Weapon.isValidWeight(0));
+	}
+	
+	
 }
